@@ -713,19 +713,6 @@ mkdir -p "$INSTALL_DIR"
 install -m755 "$SRC_BINARY" "${INSTALL_DIR}/${BINARY}"
 info "安装 binary → ${INSTALL_DIR}/${BINARY}"
 
-SCRIPTS_DIR="${INSTALL_DIR}/scripts"
-mkdir -p "$SCRIPTS_DIR"
-if [[ -d "${SCRIPT_DIR}/scripts" ]]; then
-  while IFS= read -r -d '' file; do
-    rel="${file#${SCRIPT_DIR}/scripts/}"
-    mkdir -p "${SCRIPTS_DIR}/$(dirname "$rel")"
-    cp "$file" "${SCRIPTS_DIR}/${rel}"
-  done < <(find "${SCRIPT_DIR}/scripts" -type f -name '*.js' -print0)
-  info "复制 JS 脚本 → ${SCRIPTS_DIR}"
-else
-  info "JS 脚本目录 → ${SCRIPTS_DIR}"
-fi
-
 ##############################################################################
 # 2. GeoIP MMDB（可选）
 ##############################################################################
